@@ -46,3 +46,4 @@ printf("\n");
 printf(" Average waiting time = %f \n",avg_wait);
 
 printf(" Average Turn Around time = %f",avg_turn);
+}
