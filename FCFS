@@ -1,0 +1,48 @@
+//cpu scheduling - First Come First Serve
+
+#include<stdio.h>
+void main()
+{
+int wait_time[30],turn_time[43],p[43],i,n,total_wait,total_turn;
+float avg_wait,avg_turn;
+printf("enter the process limit : ");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("process id p%d burst time : ",i);
+scanf("%d",&p[i]);
+}
+wait_time[0]=0;
+// p[0]=turn_time[0];
+for(i=1;i<n;i++)
+{
+wait_time[i]=wait_time[i-1]+p[i-1];
+}
+for(i=0;i<n;i++)
+{
+turn_time[i]=wait_time[i]+p[i];
+}
+for(i=0;i<n;i++)
+{
+total_wait += wait_time[i];
+total_turn += turn_time[i];
+}
+avg_wait= (float)total_wait/n;
+avg_turn= (float)total_turn/n;
+printf(" GANT CHART ");
+printf("\n--------------------------------\n");
+for(i=0;i<n;i++)
+{
+printf(" p%d | ",i);
+}
+printf("\n");
+for(i=0;i<n;i++)
+{
+printf(" %d ",turn_time[i])
+}
+
+printf("\n-----------------------------\n");
+printf("\n");
+printf(" Average waiting time = %f \n",avg_wait);
+
+printf(" Average Turn Around time = %f",avg_turn);
