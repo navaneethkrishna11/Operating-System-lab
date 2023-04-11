@@ -1,0 +1,101 @@
+#include<stdio.h>
+#include<stdbool.h>
+
+struct process{
+int pid;
+int bt;
+int at;
+int tat;
+int wt;
+bool completed;
+};
+
+int next(struct process pro[],int s,int cur_t)
+{
+ int id=0;
+ while((pro[id].completed == true || pro[id].at>cur_t) &&id<s)
+ {
+  id++;
+  }
+  for(int j=id+1;j<s;j++)
+  {
+    if(pro[j].completed==false && (pro[j].at <cur_t))
+    {
+      if(pro[j].bt <pro[id].bt)
+      {
+        id=j;
+        }
+        }
+        }
+        return id;
+        }
+        
+
+void main()
+{
+   int n,i,ct=0,k,sum_t=0,sum_w=0;
+   float avg_tat,avg_wt;
+   
+   printf("enter the number of process");
+   scanf("%d", &n);
+   
+   struct process p[n];
+   
+
+
+
+
+   printf("enter the arrival time and burst time of process \n ");
+   
+   for(i=0;i<n;i++)
+   {
+     printf("enter the burst time for p%d: ",i);
+     scanf("%d", &p[i].bt);
+     
+     printf("enter the arrival time for p%d : ",i);
+     scanf("%d", &p[i].at);
+     printf("\n");
+     
+     p[i].tat=0;
+     p[i].wt=0;
+     p[i].completed=false;
+   }
+ 
+    printf("\n GANT CHART \n");
+    
+   printf("\n__________________________________________________\n");  
+   int g_ar[n];
+   for(i=0;i<n;i++)
+   {
+      k=next(p,n,ct);
+      p[k].completed=true;
+      p[k].wt=ct-p[k].at;
+      ct+=p[k].bt;
+      p[k].tat=ct-p[k].at;
+      printf("p%d\t |",i);
+      g_ar[i]=ct;
+      
+    }
+    printf("\n__________________________________________________\n");  
+   printf("\n");
+     
+ 
+        for(i=0;i<n;i++)
+        {
+           printf("\t%d",g_ar[i]);
+           sum_t += p[i].tat;
+           sum_w += p[i].wt;
+           
+           }
+           avg_tat=(float)sum_t/n;
+           avg_wt=(float)sum_w/n;
+           
+      
+
+
+
+       printf("\naverage waiting time : %f", avg_tat);
+       printf("\naverage turnaround time : %f", avg_wt);
+     
+  }  
+  
