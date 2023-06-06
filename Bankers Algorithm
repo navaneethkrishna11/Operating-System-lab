@@ -1,0 +1,78 @@
+#include<stdio.h>
+ int main()
+{
+  printf("\t\tB A N K E R S   A L G O R I T H M \n\n");
+  int p,i,j,flag,ch;
+  printf("Enter the processes limit : ");
+  scanf("%d",&p);
+  int max[p][20], allocation[p][20],need[p][54],count=0,vis[p],seq[p],available[3];
+  printf("Enter the allocation matrix : \n");
+  for(i=0;i<p;i++)
+  {
+      printf("P%d : ",i);
+      scanf("%d%d%d",&allocation[i][0],&allocation[i][1],&allocation[i][2]);
+  }
+  
+  printf("Enter the maximum matrix : \n");
+  for(i=0;i<p;i++)
+  {
+      printf("P%d : ",i);
+      scanf("%d%d%d",&max[i][0],&max[i][1],&max[i][2]);
+      
+  }
+  
+  printf("Enter the available :");
+  scanf("%d%d%d", &available[0],&available[1],&available[2]);
+  
+  
+  printf("Need matrix \n");
+  for(i=0;i<p;i++)
+  {    
+  
+     printf("\np%d : ",i);
+     for(j=0;j<3;j++)
+     {
+        need[i][j]=max[i][j]-allocation[i][j];
+        printf("%d",need[i][j]);
+    }
+vis[i]=0;
+  }
+ 
+   do{
+        ch=0;
+        flag=0;
+        for(i=0;i<p;i++)
+        {
+          if(vis[i]==0)
+            {
+             if( need[i][0] <= available[0] && need[i][1] <= available[1]
+                 && need[i][2] <= available[2] )                
+                      {
+                        seq[count] =i;
+                        count++;
+                        vis[i]=1;
+                        for(j=0;j<3;j++)
+                         {
+                             available[j] += allocation[i][j];
+                         }
+                       ch++;
+                       }else
+                       {
+                        flag=1;
+                       }
+                }
+         }
+} while(flag==1 && ch!=0);
+  if(count==p)
+     {
+         printf(" \nSafe sequence : ");
+          for(i=0;i<p;i++)
+                  {
+                       printf("P%d ", seq[i]);
+                    }
+             }
+             else{
+                      printf(" Not safe sequence");
+                    }
+                     printf("\n\n");
+         }
