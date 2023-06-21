@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+   printf("\t\tF C F S  D I S K  S C H E D U L I N G \n");
+   int n,i,size,init,total_head;
+   printf("Enter the limit : ");
+   scanf("%d", &n);
+   
+   int req[n];
+   printf("Enter the requested sequences : ");
+   
+   for(i=0;i<n;i++)
+   {
+      scanf("%d", &req[i]);
+   }
+   
+   printf("Enter the initial head : ");
+   scanf("%d", &init);
+   
+   
+   for(i=0;i<n;i++)
+   {
+      total_head = total_head + abs(req[i]-init);
+      init=req[i];
+   }
+   
+   printf("Total head position : %d", total_head);
+   printf("\n");   
+   }   
+      
