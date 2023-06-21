@@ -1,0 +1,51 @@
+#include<stdio.h>
+int main ()
+{
+   printf("\t\tS C A N  D I S K  S C H E D U L I N G \n");
+   int np,i,size,init,total_head,j,temp,dir;
+ 
+   printf("Enter the limit : ");
+   scanf("%d",&np);
+   
+   int req[np];
+   printf("enter the requested sequences : ");
+   
+   for(i=0;i<np;i++)
+   {
+      scanf("%d", &req[i]);
+   }
+   
+   printf("Enter the initial head : ");
+   scanf("%d", &init);
+   
+   printf("Enter the total disk size : ");
+   scanf("%d",&size);
+   size--;
+   
+   printf("Enter the direction of head movement : \n0.Right\nelse\n1.Left\n");
+   scanf("%d",&dir);
+   
+   for(i=0;i<np-1;i++)
+   {
+     for(j=0;j<np-i-1;j++)
+      {
+         if(req[j]>req[j+1])
+          {
+             temp=req[j];
+             req[j]=req[j+1];
+             req[j+1]=temp;
+           }
+       }
+    }     
+   
+   if(dir==0)
+   {
+       total_head=(size-init)+(size-req[0]);
+   }
+else if(dir==1)
+   {
+       total_head=(init+req[np-1]);
+   }
+   printf("Total head position : %d",total_head);  
+   printf("\n");
+}    
