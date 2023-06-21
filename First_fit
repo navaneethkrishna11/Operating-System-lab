@@ -1,0 +1,42 @@
+#include<stdio.h>
+int main()
+{
+    int n,i,j,n2;
+    printf("\t\t F I R S T  F I T  M E M O R Y  A L L O C A T I O N \n");
+    printf("enter the limit :  ");
+    scanf("%d",&n);
+    int pro[n],mem[n];
+    printf("enter the process memory \n");
+    for(i=0;i<n;i++)
+    {
+       printf("P%d : ",i);
+       scanf("%d",&pro[i]);
+       mem[i]=0;
+    }
+    printf("enter the available memory:  ");
+    scanf("%d",&n2);
+    int block_size[n2];
+    for(i=0;i<n2;i++)
+    {
+      printf("Hole%d :",i+1);
+      scanf("%d",&block_size[i]);
+   }
+   printf("\tS T A T U S \n");
+   for(i=0;i<n;i++)
+   {
+     for(j=0;j<n2;j++)
+      {
+          if(pro[i]<=block_size[j])
+           {
+              mem[i]=1;  
+              printf("(P%d: %dkb) on %dkb hole.\n",i,pro[i],block_size[j]);
+              block_size[j] -= pro[i];
+             break;
+            }       
+       }
+   }
+   if(mem[i]==0)
+    {
+      printf("allocation is not possible");
+    }    
+}
