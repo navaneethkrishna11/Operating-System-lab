@@ -1,0 +1,79 @@
+#include<stdio.h>
+int find_best(int pro_size,int b[],int n)
+{
+	int best=-1,k;
+	
+	for(k=0;k<n;k++)
+	{
+		if (pro_size<=b[k])
+		{
+			best=k;
+			break;
+		}
+	}
+	if(best==-1)
+	{
+		return best;
+	}
+	
+	else{
+		for(k=0;k<n;k++)
+		{
+			if((pro_size<=b[k]) && (b[k]<b[best]))
+			{
+				best=k;			
+			}
+		}
+	}
+	return best;	
+}
+void main()
+{
+        printf("\t\t B E S T  F I T  M E M O R Y  A L L O C A T I O N \n");
+	int np,nb,i,j,bst;
+	printf("Enter the limit of process: ");
+	scanf("%d",&np);
+	int pSize[np];
+	
+	printf("Enter the memory of process:\n");
+	for(i=0;i<np;i++)
+	{
+		printf("p%d: ",i);
+		scanf("%d",&pSize[i]);
+	}
+	
+
+
+	printf("\nEnter the limit of memory: ");
+	scanf("%d",&nb);
+	int block_size[nb];
+	printf("Enter the available  memory :\n");
+	for(i=0;i<nb;i++)
+	{
+		printf("Hole%d: ",i+1);
+		scanf("%d",&block_size[i]);
+	}
+	
+	printf("\n");
+	
+	printf("\t S T A T U S \n");
+	for(i=0;i<np;i++)
+	{
+		
+		bst=find_best(pSize[i],block_size,nb);
+		if(bst==-1)
+		{
+	   printf("Memory cannot be allocaterd for P%d(size: %dkb).\n",i,pSize[i]);
+		}
+		
+		else
+		{
+			printf("(P%d: %dkb) on %dkb hole.\n",i,pSize[i],block_size[bst]);
+			block_size[bst]-=pSize[i];
+		}
+		
+	}
+}
+}
+
+
