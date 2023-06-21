@@ -1,0 +1,73 @@
+#include<stdio.h>
+
+int find_worst(int pro_size,int b[],int n)
+{
+	int worst=0,k;
+	
+	for(k=1;k<n;k++)
+	{
+		if(b[worst]<b[k])
+		{
+			worst=k;
+		}
+	}
+	
+	if(b[worst]>=pro_size)
+	{
+		return worst;	
+	}
+	else
+	{
+		worst=-1;
+	}
+	return worst;	
+}
+
+void main()
+{
+        printf("\t\t W O R S T  F I T  M E M O R Y A L L O C A T I O N \n");
+	int np,nb,i,j,wrst;
+	printf("Enter the limit of process: ");
+	scanf("%d",&np);
+	int pSize[np];
+	
+	printf("Enter the memory of process:\n");
+	for(i=0;i<np;i++)
+	{
+		printf("p%d: ",i);
+		scanf("%d",&pSize[i]);
+	}
+	
+	printf("\nEnter the limit of memory : ");
+	scanf("%d",&nb);
+	int block_size[nb];
+	printf("Enter the available size of each memory block:\n");
+	for(i=0;i<nb;i++)
+	{
+
+
+
+
+		printf("Hole%d: ",i+1);
+		scanf("%d",&block_size[i]);
+	}
+	
+	printf("\n");
+	
+	for(i=0;i<np;i++)
+	{
+		
+		wrst=find_worst(pSize[i],block_size,nb);
+		if(wrst==-1)
+		{
+			printf("Memory cannot be allocaterd for P%d(size: %dkb).\n",i,pSize[i]);
+		}
+		
+		else
+		{
+			printf("(P%d: %dkb) on %dkb hole.\n",i,pSize[i],block_size[wrst]);
+			block_size[wrst]-=pSize[i];
+		}
+		
+	}
+}
